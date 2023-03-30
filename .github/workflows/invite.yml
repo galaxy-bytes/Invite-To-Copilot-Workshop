@@ -8,39 +8,47 @@ jobs:
   invite_user:
     runs-on: ubuntu-latest
     steps:
-    - name: Check for invite request
-      uses: actions/github-script@v4
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const { Octokit } = require("@octokit/rest");
-          const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-          const comment = await octokit.issues.getComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            comment_id: context.payload.comment.id
-          });
-          const commenter = comment.data.user.login;
-          const issue = await octokit.issues.get({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: context.payload.issue.number
-          });
-          const file_name = issue.data.title.replace(/ /g, '-').toLowerCase();
-          if (comment.data.body.includes('.inviteme')) {
-            await octokit.orgs.addOrUpdateMembership({
-              org: 'your-organization-name',
-              username: commenter,
-              role: 'member'
-            });
-            const file = `workshops/${file_name}.md`;
-            const content = `* ${commenter}\n`;
-            await octokit.repos.createOrUpdateFileContents({
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - name: Install dependencies
+        run: npm install @octokit/rest
+      - name: Check for invite request
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { Octokit } = require("@octokit/rest");
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+            const comment = await octokit.issues.getComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              path: file,
-              message: `Add ${commenter} to ${file}`,
-              content: Buffer.from(content, 'utf8').toString('base64'),
-              sha: context.sha
+              comment_id: context.payload.comment.id
             });
-          }
+            const commenter = comment.data.user.login;
+            const issue = await octokit.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number
+            });
+            const file_name = issue.data.title.replace(/ /g, '-').toLowerCase();
+            if (comment.data.body.includes('.inviteme')) {
+              await octokit.orgs.addOrUpdateMembership({
+                org: 'your-organization-name',
+                username: commenter,
+                role: 'member'
+              });
+              const file = `workshops/${file_name}.md`;
+              const content = `* ${commenter}\n`;
+              await octokit.repos.createOrUpdateFileContents({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                path: file,
+                message: `Add ${commenter} to ${file}`,
+                content: Buffer.from(content, 'utf8').toString('base64'),
+                sha: context.sha
+              });
+            }
