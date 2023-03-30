@@ -15,7 +15,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Create file
         run: |
-          name=$(echo "${{ github.event.issue.body }}" | grep -oP '(?<=### Name of workshop\n\n).*(?=\n)')
-          start_date=$(echo "${{ github.event.issue.body }}" | grep -oP '(?<=### Start date\n\n).*(?=\n)')
-          file_name=$(echo "${name}${start_date}" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
-          touch "${file_name}.md"
+          name=$(echo "${{ github.event.issue.body }}" | grep -oP '(?<=### Name of workshop\n\n).*')
+          start_date=$(echo "${{ github.event.issue.body }}" | grep -oP '(?<=### Start date\n\n).*')
+          file_name=$(echo "${name}${start_date}" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]' | tr -d ',')
+          mkdir -p workshops
+          touch "workshops/${file_name}.md"
