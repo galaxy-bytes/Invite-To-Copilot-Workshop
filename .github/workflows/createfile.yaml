@@ -3,8 +3,6 @@ name: Create Workshop File
 on:
   issues:
     types: [labeled]
-  pull_request:
-    types: [labeled]
 
 jobs:
   create_file:
