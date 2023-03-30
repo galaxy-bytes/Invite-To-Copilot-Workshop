@@ -3,8 +3,7 @@ description: Request a new workshop to be added to Copilot.
 title: "Add To Copilot workshop: "
 labels: [enhancement]
 body:
-  - components:
-    - type: input
+    - type: markdown
       id: start_date
       attributes:
         label: Start date
