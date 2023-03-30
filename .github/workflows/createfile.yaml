@@ -3,21 +3,19 @@ name: Create Workshop File
 on:
   issues:
     types: [labeled]
+  pull_request:
+    types: [labeled]
 
 jobs:
   create_file:
     runs-on: ubuntu-latest
+    if: ${{ github.event.label.name == 'new-workshop' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create file
         run: |
-          name=$(echo ${{ github.event.issue.body }} | grep -oP '(?<=Name of workshop\n).*')
-          start_date=$(echo ${{ github.event.issue.body }} | grep -oP '(?<=Start date\n).*')
-          end_date=$(echo ${{ github.event.issue.body }} | grep -oP '(?<=End date\n).*')
-          location=$(echo ${{ github.event.issue.body }} | grep -oP '(?<=Location\n).*')
-          touch "${name}_${start_date}.txt"
-          echo "Name of workshop: ${name}" >> "${name}_${start_date}.txt"
-          echo "Start date: ${start_date}" >> "${name}_${start_date}.txt"
-          echo "End date: ${end_date}" >> "${name}_${start_date}.txt"
-          echo "Location: ${location}" >> "${name
+          name=$(echo "${{ github.event.issue.body }}" | grep -oP '(?<=### Name of workshop\n\n).*(?=\n)')
+          start_date=$(echo "${{ github.event.issue.body }}" | grep -oP '(?<=### Start date\n\n).*(?=\n)')
+          file_name=$(echo "${name}${start_date}" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
+          touch "${file_name}.md"
