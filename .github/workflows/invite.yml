@@ -5,7 +5,7 @@ on:
     types: [created]
 
 jobs:
-  invite_user:
+  my-job:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -15,14 +15,20 @@ jobs:
         with:
           node-version: '14.x'
       - name: Install dependencies
-        run: npm install @octokit/rest
-      - name: Check for invite request
+        run: npm install
+      - name: Add user to organization
         uses: actions/github-script@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { Octokit } = require("@octokit/rest");
             const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+            await octokit.request('PUT /orgs/:org/memberships/:username', {
+              org: 'your-organization-name',
+              username: 'rizel-test-user',
+              role: 'member'
+            });
             const comment = await octokit.issues.getComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
