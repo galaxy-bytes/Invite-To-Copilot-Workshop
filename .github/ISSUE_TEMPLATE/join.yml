@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         This should be helpful!
-  - type: textarea
+  - type: input
     attributes:
       label: Start date
       description: At what date will workshop attendees need access to this org? (Month Date, Year)
