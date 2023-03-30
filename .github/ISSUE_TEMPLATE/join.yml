@@ -3,20 +3,19 @@ description: Join workshop hosted by GitHub or Microsoft employees
 title: "Join Workshop"
 labels: [new-workshop]
 body:
-  - type: markdown
+  - type: input
+    id: start_date
     attributes:
-      value: |
-        Thanks for taking the time to fill out this bug report!
-  - type: textarea
+      label: Start date
+      description: Please select the start date of the workshop.
+      type: datepicker
+      required: true
+  - type: input
+    id: end_date
     attributes:
-      label: Describe the bug
-      description: A clear and concise description of what the bug is.
-      placeholder: |
-        1. Go to '...'
-        2. Click on '...'
-        3. Scroll down to '...'
-        4. See error
-    validations:
+      label: End date
+      description: Please select the end date of the workshop.
+      type: datepicker
       required: true
   - type: textarea
     attributes:
