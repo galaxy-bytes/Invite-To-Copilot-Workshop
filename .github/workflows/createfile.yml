@@ -12,7 +12,12 @@ jobs:
     if: ${{ github.event.label.name == 'new-workshop' }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Create file
         run: |
           touch test.md
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Create test.md"
+          commit_options: "--author='Rizel Scarlett <blackgirlbytes@github.com>'"
