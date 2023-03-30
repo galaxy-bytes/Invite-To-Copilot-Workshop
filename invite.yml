@@ -1,0 +1,44 @@
+name: Invite Users
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  invite_user:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for invite request
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const comment = await github.issues.getComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id
+            });
+            const commenter = comment.data.user.login;
+            const issue = await github.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number
+            });
+            const file_name = issue.data.title.replace(/ /g, '-').toLowerCase();
+            if (comment.data.body.includes('.inviteme')) {
+              await github.orgs.addOrUpdateMembership({
+                org: 'your-organization-name',
+                username: commenter,
+                role: 'member'
+              });
+              const file = `workshops/${file_name}.md`;
+              const content = `* ${commenter}\n`;
+              await github.repos.createOrUpdateFileContents({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                path: file,
+                message: `Add ${commenter} to ${file}`,
+                content: Buffer.from(content).toString('base64'),
+                sha: context.sha
+              });
+            }
