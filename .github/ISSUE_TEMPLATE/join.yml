@@ -10,35 +10,4 @@ body:
       description: Please select the start date of the workshop.
       type: textarea
       required: true
-  - type: input
-    id: end_date
-    attributes:
-      label: End date
-      description: Please select the end date of the workshop.
-      type: textarea
-      required: true
-  - type: markdown
-    id: workshop_name
-    attributes:
-      label: Workshop name
-      description: Please enter the name of the workshop.
-      type: textarea
-      required: true
-  - type: input
-    id: workshop_host
-    attributes:
-      label: Workshop host
-      description: Please enter the name of the workshop host.
-      type: textarea
-      required: true
-  - type: dropdown
-    id: location
-    attributes:
-      label: Location
-      description: Please select the location of the workshop.
-      options:
-        - label: In person
-          value: in_person
-        - label: Virtual
-          value: virtual
-      required: true
+  
