@@ -12,11 +12,12 @@ jobs:
     if: ${{ github.event.label.name == 'new-workshop' }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Create file
         run: |
-          touch test.md
+          mkdir -p workshops
+          touch workshops/test.md
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Create test.md"
+          commit_message: "Create workshops/test.md"
