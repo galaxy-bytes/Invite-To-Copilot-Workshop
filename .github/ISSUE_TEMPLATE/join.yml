@@ -9,16 +9,20 @@ body:
         This should be helpful!
   - type: input
     attributes:
+      label: Name of workshop
+      description: What is the name of your workshop
+    validations:
+      required: true
+  - type: input
+    attributes:
       label: Start date
       description: At what date will workshop attendees need access to this org? (Month Date, Year)
-#       placeholder: March 29, 2023
     validations:
       required: true
   - type: input
     attributes:
       label: End date
       description: At what date will workshop attendees no longer need access to this org? (Month Date, Year)
-#     placeholder: March 30, 2023
     validations:
       required: true
   - type: dropdown
