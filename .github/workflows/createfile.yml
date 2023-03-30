@@ -27,9 +27,8 @@ jobs:
           name="${{ steps.extract.outputs.name }}"
           file_name=$(echo "${name}" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]' | tr -d ',')
           mkdir -p workshops
-          touch "workshops/${file_name}.md"
-          echo "file_name=${file_name}" >> $GITHUB_ENV
-
+          touch "workshops/${name}.md"
+          echo "file_name=${name}" >> $GITHUB_ENV
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
