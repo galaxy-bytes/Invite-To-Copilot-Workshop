@@ -19,5 +19,5 @@ jobs:
         id: extract
         run: |
           body="${{ github.event.issue.body }}"
-          name=$(echo "${body}" | grep -oP '(?<=### Name of workshop\n\n).*')
+          name=$(echo "${body}" | grep -oP '(?<=### Name of workshop\n).*')
           echo "::set-output name=name::${name}"
