@@ -1,0 +1,23 @@
+name: Create Workshop File
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  create_file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create file
+        run: |
+          name=$(echo ${{ github.event.issue.body }} | grep -oP '(?<=Name of workshop\n).*')
+          start_date=$(echo ${{ github.event.issue.body }} | grep -oP '(?<=Start date\n).*')
+          end_date=$(echo ${{ github.event.issue.body }} | grep -oP '(?<=End date\n).*')
+          location=$(echo ${{ github.event.issue.body }} | grep -oP '(?<=Location\n).*')
+          touch "${name}_${start_date}.txt"
+          echo "Name of workshop: ${name}" >> "${name}_${start_date}.txt"
+          echo "Start date: ${start_date}" >> "${name}_${start_date}.txt"
+          echo "End date: ${end_date}" >> "${name}_${start_date}.txt"
+          echo "Location: ${location}" >> "${name
