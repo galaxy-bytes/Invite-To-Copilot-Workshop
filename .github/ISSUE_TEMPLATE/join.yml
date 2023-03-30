@@ -1,7 +1,7 @@
-name: 🐛 Bug report
-description: Create a bug report to help us improve Open Sauced 🍕
-title: "Bug: "
-labels: [👀 needs triage, 🐛 bug]
+name: Join Workshop
+description: Join workshop hosted by GitHub or Microsoft employees
+title: "Join Workshop"
+labels: [new-workshop]
 body:
   - type: markdown
     attributes:
