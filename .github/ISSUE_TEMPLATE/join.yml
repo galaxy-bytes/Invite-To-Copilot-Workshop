@@ -1,8 +1,7 @@
-name: Add To Copilot workshop
-
-description: |
-  Workshop hosts that work at GitHub or Microsoft can fill out this template to provide temporary access for features within GitHub.
-
+name: Join workshop
+description: Join Copilot workshop hosted by GitHub or Microsoft employees
+title: "Join workshop"
+labels: [new-workshop]
 body:
   - type: input
     id: start_date
