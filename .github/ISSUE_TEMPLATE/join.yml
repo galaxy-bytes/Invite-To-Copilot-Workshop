@@ -1,42 +1,37 @@
-name: Add To Copilot workshop
-description: Request a new workshop to be added to Copilot.
-title: "Add To Copilot workshop: "
-labels: [enhancement]
+name: Join Workshop
+description: Issue form for attendees to participate in workshop hosted by GitHub or Microsoft attendees
+title: "Join Workshop"
+labels: [new-workshop]
 body:
-    - type: markdown
-      id: start_date
-      attributes:
-        label: Start date
-        description: Please select the start date of the workshop.
-        inputType: date
-        required: true
-    - type: input
-      id: end_date
-      attributes:
-        label: End date
-        description: Please select the end date of the workshop.
-        inputType: date
-        required: true
-    - type: input
-      id: workshop_name
-      attributes:
-        label: Workshop name
-        description: Please enter the name of the workshop.
-        required: true
-    - type: input
-      id: workshop_host
-      attributes:
-        label: Workshop host
-        description: Please enter the name of the workshop host.
-        required: true
-    - type: dropdown
-      id: location
-      attributes:
-        label: Location
-        description: Please select the location of the workshop.
-        options:
-          - label: In person
-            value: in_person
-          - label: Virtual
-            value: virtual
-        required: true
+  - type: markdown
+    attributes:
+      value: |
+        This should be helpful!
+  - type: textarea
+    attributes:
+      label: Start date
+      description: At what date will workshop attendees need access to this org? (Month Date, Year)
+      placeholder: |
+        March 29, 2023
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: End date
+      description: At what date will workshop attendees no longer need access to this org? (Month Date, Year)
+    placeholder: |
+        March 30, 2023
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Location
+      description: Is this workshop virtual or in person?
+      options:
+        - "Virtual"
+        - "In person"
+        - "Hybrid"
+    validations:
+      required: true
+
