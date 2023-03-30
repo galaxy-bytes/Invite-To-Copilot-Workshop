@@ -14,7 +14,7 @@ body:
 #       placeholder: March 29, 2023
     validations:
       required: true
-  - type: textarea
+  - type: input
     attributes:
       label: End date
       description: At what date will workshop attendees no longer need access to this org? (Month Date, Year)
