@@ -36,7 +36,7 @@ jobs:
             });
             const file_name = issue.data.title.replace(/ /g, '-').toLowerCase();
             if (comment.data.body.includes('.inviteme')) {
-              await octokit.orgs.addOrUpdateMembership({
+              await octokit.request('PUT /orgs/:org/memberships/:username', {
                 org: 'your-organization-name',
                 username: commenter,
                 role: 'member'
